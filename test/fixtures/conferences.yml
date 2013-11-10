@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  confdate: 2013-11-10
+  conftime: 2013-11-10 08:44:44
+
+two:
+  confdate: 2013-11-10
+  conftime: 2013-11-10 08:44:44
