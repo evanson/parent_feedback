@@ -1,19 +1,4 @@
 ParentFeedback::Application.routes.draw do
-  get "welcome/new"
-  get "student_days/new"
-  get "conf_attendances/new"
-  get "conferences/new"
-  get "works/new"
-  get "center_days/new"
-  get "school_days/new"
-  get "subjects/new"
-  get "students/new"
-  get "parents/new"
-  get "centers/new"
-  get "users/new"
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
