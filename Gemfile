@@ -44,7 +44,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 
-gem 'bootstrap-sass', '2.0.0'
+gem 'bootstrap-sass', '2.3.2.0'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.0.1'
 gem 'will_paginate', '3.0.3'

@@ -1,6 +1,18 @@
 ParentFeedback::Application.routes.draw do
+  root 'sessions#new'
+  resources :centers
+
+  resources :admins, :controller => "users", :type => "Admin"
+  resources :instructors, :controller => "users", :type => "Instructor"
+  resources :parents, :controller => "users", :type => "Parent"
+
+  resources :sessions, only: [:new, :create, :destroy ]
+
+  match '/signin', to: 'sessions#new', via: :get
+  match '/signout', to: 'sessions#destroy', via: :delete
+
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

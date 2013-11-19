@@ -1,2 +1,2 @@
-class Parent < ActiveRecord::Base
+class Parent < User
 end
