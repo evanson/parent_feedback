@@ -95,6 +95,9 @@ GEM
     jquery-rails (2.0.2)
       railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
+    jquery-turbolinks (2.0.1)
+      railties (>= 3.1.0)
+      turbolinks
     json (1.8.1)
     libnotify (0.5.9)
     listen (0.7.3)
@@ -211,6 +214,7 @@ DEPENDENCIES
   guard-spork (= 0.3.2)
   jbuilder (~> 1.2)
   jquery-rails (= 2.0.2)
+  jquery-turbolinks
   libnotify (= 0.5.9)
   pg
   rails (= 4.0.0)

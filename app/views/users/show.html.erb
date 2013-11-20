@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<div class="row">
 <p>
   <strong>Firstname:</strong>
   <%= @user.firstname %>
@@ -18,10 +18,8 @@
   <strong>Status:</strong>
   <%= @user.status %>
 </p>
-
-<%= link_to 'Edit', eval("edit_#{@user.type.to_s.downcase}_path(@user)") %> |
-<%= link_to 'Back', eval("#{@user.type.to_s.downcase}s_path") %>
-
-<% if signed_in? %>
-| <%= link_to "Sign out", signout_path, method: "delete" %>
-<% end %>
+<p>
+  <strong>Role: </strong>
+  <%= @user.type.to_s %>
+</p>
+</div>

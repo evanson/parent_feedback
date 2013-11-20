@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     # @users = User.where(:type => params[:type])
-    @users = user_type.all
+    @users = user_type.paginate(page: params[:page])
     @user_type = user_type.to_s.downcase
   end
 

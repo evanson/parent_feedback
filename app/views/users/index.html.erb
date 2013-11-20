@@ -1,4 +1,4 @@
-<h1>Listing </h1>
+<h1><%= @user_type.to_s.pluralize.capitalize %></h1>
 
 <table>
   <thead>
@@ -25,7 +25,7 @@
     <% end %>
   </tbody>
 </table>
-<br>
-<%= link_to 'New', eval("new_#{@user_type}_path") %>
-
+<br><br><br>
+<%= link_to "New #{@user_type}", eval("new_#{@user_type}_path"), class: "btn btn-large btn-primary" %>
+<%= will_paginate %>
 
