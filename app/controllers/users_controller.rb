@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to @user, notice: "#{@user.type} was successfully created." }
         format.json { render action: 'show', status: :created, location: @user }
-        #UserMailer.user_email(@user).deliver
+        UserMailer.user_email(@user).deliver
       else
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
