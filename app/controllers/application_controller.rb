@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
 
   before_action :require_login
 
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = "Access denied"
+    redirect_to current_user
+  end
+
   private
 
   def require_login

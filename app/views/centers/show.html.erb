@@ -1,9 +1,11 @@
-<p id="notice"><%= notice %></p>
-
+<% if notice %>
+<h3 class="alert alert-success"><%= notice %></h3>
+<% end %>
 <p>
   <strong>Name:</strong>
   <%= @center.name %>
 </p>
-
-<%= link_to 'Edit', edit_center_path(@center) %> |
-<%= link_to 'Back', centers_path %>
+<% if can? :edit, @center %>
+<%= link_to 'Edit center', edit_center_path(@center), class: "btn
+btn-large btn-primary" %> 
+<% end %>

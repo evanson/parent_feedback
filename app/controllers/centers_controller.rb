@@ -5,27 +5,31 @@ class CentersController < ApplicationController
   # GET /centers.json
   def index
     @centers = Center.all
+    authorize! :index, Center
   end
 
   # GET /centers/1
   # GET /centers/1.json
   def show
+    authorize! :edit, @center
   end
 
   # GET /centers/new
   def new
     @center = Center.new
+    authorize! :new, @center
   end
 
   # GET /centers/1/edit
   def edit
+    authorize! :edit, @center
   end
 
   # POST /centers
   # POST /centers.json
   def create
     @center = Center.new(center_params)
-
+    authorize! :create, @center
     respond_to do |format|
       if @center.save
         format.html { redirect_to @center, notice: 'Center was successfully created.' }
@@ -41,6 +45,7 @@ class CentersController < ApplicationController
   # PATCH/PUT /centers/1.json
   def update
     respond_to do |format|
+      authorize! :update, @center
       if @center.update(center_params)
         format.html { redirect_to @center, notice: 'Center was successfully updated.' }
         format.json { head :no_content }
@@ -54,6 +59,7 @@ class CentersController < ApplicationController
   # DELETE /centers/1
   # DELETE /centers/1.json
   def destroy
+    authorize! :destroy, @center
     @center.destroy
     respond_to do |format|
       format.html { redirect_to centers_url }

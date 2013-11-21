@@ -1,3 +1,5 @@
+<div class="row">
+<div class="span6 offset3">
 <%= form_for(@center) do |f| %>
   <% if @center.errors.any? %>
     <div id="error_explanation">
@@ -16,6 +18,8 @@
     <%= f.text_field :name %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-large btn-primary"%>
   </div>
 <% end %>
+</div>
+</div>
