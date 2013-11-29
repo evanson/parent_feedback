@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to @user, notice: "#{@user.type} was successfully created." }
         format.json { render action: 'show', status: :created, location: @user }
-        UserMailer.user_email(@user).deliver
+        #UserMailer.user_email(@user).deliver
       else
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -71,6 +71,10 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(user_type.to_s.downcase.to_sym).permit(:type, :firstname, :lastname, :email, :password, :password_confirmation, :status)
+      if user_type.to_s == "Instructor"
+        params.require(user_type.to_s.downcase.to_sym).permit(:type, :firstname, :lastname, :email, :center_id, :password, :password_confirmation, :status)
+      else
+        params.require(user_type.to_s.downcase.to_sym).permit(:type, :firstname, :lastname, :email, :password, :password_confirmation, :status)
+      end
     end
 end

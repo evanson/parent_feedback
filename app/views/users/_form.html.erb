@@ -25,7 +25,12 @@
     <%= f.label :email %>
     <%= f.text_field :email %>
   
-  
+    <% if @user.type.to_s == "Instructor" %>  
+        <%= f.label :center_id %>
+        <%= f.select :center_id, Center.find(:all).collect {|c|
+[c.name, c.id]
+}%>
+    <% end %>
     <%= f.label :password %>
     <%= f.password_field :password %>
   

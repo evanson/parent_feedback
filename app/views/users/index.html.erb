@@ -6,6 +6,10 @@
       <th>Firstname</th>
       <th>Lastname</th>
       <th>Email</th>
+      <% if @user_type.to_s == "instructor" %>
+        <th>Center</th>
+      <% end %>
+      <th>Status</th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,6 +22,10 @@
         <td><%= user.firstname %></td>
         <td><%= user.lastname %></td>
         <td><%= user.email %></td>
+        <% if user.type.to_s == "Instructor" %>
+           <td> <%= user.center.name %></td>
+        <% end %>
+        <td><%= user.status %></td>
         <td>
 <% if can? :read, user %>
 <%= link_to 'Show', user %>
