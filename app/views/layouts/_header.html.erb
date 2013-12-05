@@ -58,6 +58,11 @@
                            <% if can? :index, Center%>
                                     <li><%= link_to "Current centers", centers_path %></li>
                            <% end %>
+                                   <li class="divider"></li>
+                           <% if can? :index, SchoolDay %>
+                                    <li><%= link_to "School Days", school_days_path %></li>
+                           <% end %>
+
                                 </ul>
                             </li>
                            <% end %>
