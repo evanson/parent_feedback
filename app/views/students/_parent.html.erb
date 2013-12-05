@@ -1,0 +1,28 @@
+    <h3>Parent details</h3>
+    <%= f.fields_for :parent do |p|%>
+
+      <%= p.label :firstname %>
+      <%= p.text_field :firstname %>
+      
+      
+      <%= p.label :lastname %>
+      <%= p.text_field :lastname %>
+      
+      
+      <%= p.label :email %>
+      <%= p.text_field :email %>
+      
+      <%= p.label :password %>
+      <%= p.password_field :password %>
+      
+      
+      <%= p.label :password_confirmation %>
+      <%= p.password_field :password_confirmation %>
+      
+      
+      <%= p.label :status %>
+      <%= p.select(:status, options_for_select([['Active',
+                                                 'active'], ['Inactive', 'inactive']])) %>
+    </br>
+
+    <% end %>

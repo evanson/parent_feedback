@@ -1,0 +1,10 @@
+class CreateStudentsParents < ActiveRecord::Migration
+  def change
+    create_table :students_parents, :id => false do |t|
+      t.integer :student_id, :null => false
+      t.integer :user_id, :null => false
+
+      add_index :students_parents, [:student_id, :user_id], :unique => true
+    end
+  end
+end

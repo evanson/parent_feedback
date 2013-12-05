@@ -12,14 +12,19 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
-  </div>
-  <div class="actions">
+<%= f.fields_for :center_days do |c| %>
+  <%= c.label :center_days %>
+  <% for day in SchoolDay.all %>
+    <%= check_box_tag "center[school_day_ids][]", day.id,
+    @center.center_days.include?(school_day_id: day.id) %>
+    <%= day.abbrev %>
+  <% end %>
+<% end %>
+</br></br>
     <%= f.submit class: "btn btn-large btn-primary"%>
-  </div>
+
 <% end %>
 </div>
 </div>

@@ -1,0 +1,2 @@
+$('#days_field').replaceWith("#{escape_javascript(render partial:
+'center_days', locals: {center_days: @center_days})}")

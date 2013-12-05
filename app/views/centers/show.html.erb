@@ -5,6 +5,12 @@
   <strong>Name:</strong>
   <%= @center.name %>
 </p>
+<p>
+<strong>Days active: </strong>
+<% @center.center_days.each do  |day|%>
+<%= day.school_day.abbrev %>
+<% end %>
+</p>
 <% if can? :edit, @center %>
 <%= link_to 'Edit center', edit_center_path(@center), class: "btn
 btn-large btn-primary" %> 

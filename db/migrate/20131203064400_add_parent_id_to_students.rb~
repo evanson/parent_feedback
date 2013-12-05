@@ -1,0 +1,4 @@
+class AddParentIdToStudents < ActiveRecord::Migration
+  def change
+  end
+end

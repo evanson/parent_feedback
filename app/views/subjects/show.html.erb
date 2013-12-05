@@ -1,0 +1,11 @@
+<% if notice %>
+    <h3 class="alert alert-success"><%= notice %></h3>
+<% end %>
+<p>
+  <strong>Name:</strong>
+  <%= @subject.name %>
+</p>
+<% if can? :edit, Subject%>
+<%= link_to 'Edit', edit_subject_path(@subject), class: "btn btn-large btn-primary" %>
+<% end %>
+

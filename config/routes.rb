@@ -1,5 +1,14 @@
 ParentFeedback::Application.routes.draw do
   root 'sessions#new'
+
+  resources :school_days
+
+  resources :subjects
+
+  resources :students do
+    get :center_days_partial, on: :member
+  end
+
   resources :centers
 
   resources :admins, :controller => "users", :type => "Admin"

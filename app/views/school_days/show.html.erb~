@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @school_day.name %>
+</p>
+
+<p>
+  <strong>Abbrev:</strong>
+  <%= @school_day.abbrev %>
+</p>
+
+<%= link_to 'Edit', edit_school_day_path(@school_day) %> |
+<%= link_to 'Back', school_days_path %>

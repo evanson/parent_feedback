@@ -1,0 +1,6 @@
+$('#days_field').html("<%= escape_javascript(render partial:
+'center_days', locals: {center_days: @center_days}) %>")
+
+$('#days_edit_field').html("<%= escape_javascript(render partial:
+'center_days_edit', locals: {center_days: @center_days}) %>")
+

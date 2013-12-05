@@ -1,0 +1,70 @@
+<div class="row">
+<div class="span6 offset3">
+<%= form_for(@student) do |f| %>
+  <% if @student.errors.any? %>
+    <div id="error_explanation">
+    <div class="alert alert-error">
+      <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
+    </div>
+      <ul>
+      <% @student.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.label :firstname %><br>
+    <%= f.text_field :firstname %>
+
+    <%= f.label :lastname %><br>
+    <%= f.text_field :lastname %>
+
+    <%= f.label :dob %>
+    <%= f.date_select :dob %>
+
+    <% if current_user.type.to_s == "Admin" %>  
+        <%= f.label :center_id %>
+        <%= f.select :center_id, Center.all.collect {|c|
+[c.name, c.id]
+}, {}, { :class => "center_edit" } %>
+        <%= f.fields_for :student_days do |c|%>
+        <%= c.label "Days to attend" %>
+            <div id="days_edit_field">
+  <% for day in  CenterDay.where(center_id:
+        Center.first.id).take(7) %>
+    <%= check_box_tag "student[center_day_ids][]", day.id %>
+    <%= day.school_day.abbrev %>
+  <% end %>
+            </div>
+        <% end %>
+    <% elsif current_user.type.to_s == "Instructor"  %>
+        <%= f.label :center_id %>
+        <%= f.select :center_id, [[current_user.center.name,
+        current_user.center.id]] %>
+    <% 1.times do %>
+<%= f.fields_for :student_days do |c| %>
+  <%= c.label "Days to attend" %>
+  <% for day in  CenterDay.where(center_id:
+        current_user.center).take(7) %>
+    <%= check_box_tag "student[center_day_ids][]", day.id %>
+    <%= day.school_day.abbrev %>
+  <% end %>
+<% end %>
+    <% end %>
+    <% end %>
+ <%= f.fields_for :student_subjects do |su|%>
+        <%= su.label :subjects %>
+        <% for subject in Subject.all %>
+ <%= check_box_tag "student[subject_ids][]", subject.id
+        %>
+                <%= subject.name %>
+        <% end %>
+    <% end %>
+
+</br></br>
+    <%= f.submit class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>
+</div>
+</div>

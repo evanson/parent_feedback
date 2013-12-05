@@ -1,0 +1,4 @@
+class AddStudentIdToUsers < ActiveRecord::Migration
+  def change
+  end
+end

@@ -17,6 +17,7 @@ class CentersController < ApplicationController
   # GET /centers/new
   def new
     @center = Center.new
+    @center.school_days.build
     authorize! :new, @center
   end
 
@@ -75,6 +76,6 @@ class CentersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def center_params
-      params.require(:center).permit(:name)
+      params.require(:center).permit(:name, :school_day_ids => [])
     end
 end

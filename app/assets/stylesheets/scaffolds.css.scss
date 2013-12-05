@@ -1,5 +1,4 @@
 body {
-  color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
@@ -11,7 +10,7 @@ p, ol, ul, td {
   line-height: 18px;
 }
 
-pre {
+/*pre {
   background-color: #eee;
   padding: 10px;
   font-size: 11px;
@@ -38,7 +37,7 @@ div {
   color: green;
 }
 
-/*.field_with_errors {
+.field_with_errors {
   padding: 2px;
   background-color: red;
   display: table;

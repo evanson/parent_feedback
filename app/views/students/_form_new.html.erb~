@@ -1,0 +1,89 @@
+<div class="row">
+<div class="span6 offset3">
+<%= form_for @parent, :url => student_path(@parent) do |f| %>
+  <% if @parent.errors.any? %>
+    <div id="error_explanation">
+    <div class="alert alert-error">
+      <h2><%= pluralize(@parent.errors.count, "error") %> prohibited this student from being saved:</h2>
+    </div>
+      <ul>
+      <% @parent.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<%= f.fields_for :students do |s|%>
+    <%= s.label :firstname %><br>
+    <%= s.text_field :firstname %>
+
+    <%= s.label :lastname %><br>
+    <%= s.text_field :lastname %>
+
+    <%= s.label :dob %>
+    <%= s.date_select :dob, {:start_year => Date.today.year - 10}%>
+
+    <% if current_user.type.to_s == "Admin" %>  
+        <%= s.label :center_id %>
+        <%= s.select :center_id, Center.find(:all).collect {|c|
+[c.name, c.id]
+}, {}, { :class => "center" }%>
+        <%= s.fields_for :center_days do |c|%>
+            <div id="days_field">
+
+            </div>
+        <% end %>
+    <% elsif current_user.type.to_s == "Instructor"  %>
+        <%= s.label :center_id %>
+        <%= s.select :center_id, [[current_user.center.name,
+        current_user.center.id]]%>
+        <%= s.fields_for :center_days do |c|%>
+            <%= c.label "Days to attend" %>
+            <% for day in CenterDay.where(center_id:
+        current_user.center).take(7)%>
+                <%= check_box_tag "parent[students_attributes][0][center_day_ids][]", day.id
+        %>
+                <%= day.school_day.abbrev %>
+            <% end %>
+        <% end %>
+    <% end %>
+
+    <%= s.fields_for :subjects do |su|%>
+
+        <%= su.label :subjects %>
+        <% for subject in Subject.all %>
+ <%= check_box_tag "parent[students_attributes][0][subject_ids][]", subject.id
+        %>
+                <%= subject.name %>
+        <% end %>
+    <% end %>
+<% end %>
+<h3>Parent Details</h3>
+      <%= f.label :firstname %>
+      <%= f.text_field :firstname %>
+      
+      
+      <%= f.label :lastname %>
+      <%= f.text_field :lastname %>
+      
+      
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+      
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+      
+      
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+      
+      
+      <%= f.label :status %>
+      <%= f.select(:status, options_for_select([['Active',
+                                                 'active'], ['Inactive', 'inactive']])) %>
+
+    <%= f.submit "Create student", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>
+</div>
+</div>

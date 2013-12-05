@@ -1,0 +1,5 @@
+<% @center_days.each do |cday|%>
+    console.log(<%= cday.school_day.abbrev %>)
+<% end %>
+$('#days_field').html("<%= escape_javascript(render partial:
+'center_days', locals: {center_days: @center_days}) %>")

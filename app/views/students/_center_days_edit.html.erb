@@ -1,0 +1,5 @@
+<% center_days.each do |cday| %>
+    <%= check_box_tag "student[center_day_ids][]",cday.id %>
+    <%= cday.school_day.abbrev %>
+<% end %>
+

@@ -1,0 +1,62 @@
+<h1>Listing students</h1>
+<% if notice %>
+    <h3 class="alert alert-success"><%= notice %></h3>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Dob</th>
+      <th>Center</th>
+      <th>Subjects</th>
+      <th>Days active</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.firstname %></td>
+        <td><%= student.lastname %></td>
+        <td><%= student.dob %></td>
+        <td><%= student.center.name %></td>
+        <td>
+          <% student.subjects.each do |subject| %>
+            <%=  subject.name %>
+          <% end %>
+        </td>
+        <td>
+          <% student.student_days.each do |day| %>
+            <%= day.center_day.school_day.abbrev %>
+          <% end %>
+        </td>
+        <td>
+<% if can? :read, student%>
+<%= link_to 'Show', student %>
+<% end %>
+</td>
+        <td>
+<% if can? :edit, student%>
+<%= link_to 'Edit', edit_student_path(student) %>
+<% end %>
+</td>
+        <td>
+<% if can? :destroy, student%>
+<%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are
+you sure?' } %>
+<% end %>
+</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% will_paginate %>
+<br>
+<% if can? :create, Student %>
+  <%= link_to 'New Student', new_student_path, class: "btn btn-large
+btn-primary" %>
+<% end %>

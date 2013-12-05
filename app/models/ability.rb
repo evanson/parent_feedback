@@ -37,11 +37,16 @@ class Ability
     can [:edit, :update, :read], Instructor, :id => user.id if user.type.to_s.downcase == "instructor"
     cannot :index, Instructor if user.type.to_s.downcase == "instructor"
     can [:create, :read, :edit, :update], Parent if user.type.to_s.downcase == "instructor"
-    can [:update, :edit, :read], Center if user.type.to_s.downcase == "instructor"
+    can [:update, :edit, :read], Center, :id => user.center_id if user.type.to_s.downcase == "instructor"
     cannot :index, Center if user.type.to_s.downcase == "instructor"
 
     #Parent
     can [:edit, :update, :read], Parent, :id => user.id if user.type.to_s.downcase == "parent"
     cannot :index, Parent if user.type.to_s.downcase == "parent"
+
+    #Student
+    can :manage, Student, :center_id => user.center_id if user.type.to_s.downcase == "instructor"
+
+    #Subject
   end
 end

@@ -1,0 +1,52 @@
+<% if notice %>
+    <h3 class="alert alert-success"><%= notice %></h3>
+<% end %>
+
+<p>
+  <strong>Firstname:</strong>
+  <%= @student.firstname %>
+</p>
+
+<p>
+  <strong>Lastname:</strong>
+  <%= @student.lastname %>
+</p>
+
+<p>
+  <strong>Dob:</strong>
+  <%= @student.dob %>
+</p>
+
+<p>
+  <strong>Center:</strong>
+    <%= @student.center.name %>
+</p>
+<p>
+  <strong>Subjects taken:</strong>
+  <% @student.subjects.each do |subject| %>
+    <%=  subject.name %>
+  <% end %>
+
+</p>
+
+<p>
+  <strong>Days active:</strong>
+  <% @student.student_days.each do |day| %>
+    <%= day.center_day.school_day.abbrev %>
+  <% end %>
+
+</p>
+
+<p>
+    <strong>Parent:</strong>
+    <%= @student.parent.firstname + ' ' + @student.parent.lastname +
+    ', ' + @student.parent.email%>
+</p>
+
+<% if can? :edit, @student %>
+<%= link_to 'Edit', edit_student_path(@student), class: "btn btn-large btn-primary" %>
+<% end %>
+<% if can? :read, Student %>
+  <%= link_to 'All Students', students_path, class: "btn btn-large
+btn-primary" %>
+<% end %>
