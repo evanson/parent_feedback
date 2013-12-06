@@ -23,7 +23,11 @@
         <td><%= student.firstname %></td>
         <td><%= student.lastname %></td>
         <td><%= student.dob %></td>
-        <td><%= student.center.name %></td>
+        <td>
+<% if Center.exists?(student.center_id) %>
+<%= student.center.name %>
+<% end %>
+</td>
         <td>
           <% student.subjects.each do |subject| %>
             <%=  subject.name %>
@@ -31,7 +35,12 @@
         </td>
         <td>
           <% student.student_days.each do |day| %>
-            <%= day.center_day.school_day.abbrev %>
+<% if CenterDay.exists?(day.center_day_id)%>
+    <%= day.center_day.school_day.abbrev %>
+<% else %>
+    <% day.destroy %>
+<% end %>
+
           <% end %>
         </td>
         <td>

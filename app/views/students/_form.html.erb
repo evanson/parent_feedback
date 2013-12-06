@@ -32,7 +32,7 @@
         <%= c.label "Days to attend" %>
             <div id="days_edit_field">
   <% for day in  CenterDay.where(center_id:
-        Center.first.id).take(7) %>
+        @student.center_id).take(7) %>
     <%= check_box_tag "student[center_day_ids][]", day.id %>
     <%= day.school_day.abbrev %>
   <% end %>

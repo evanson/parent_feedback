@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Days active</th>
       <th></th>
       <th></th>
       <th></th>
@@ -14,6 +15,11 @@
     <% @centers.each do |center| %>
       <tr>
         <td><%= center.name %></td>
+        <td>
+          <% center.center_days.each do |day| %>
+            <%= day.school_day.abbrev %>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', center %></td>
         <td><%= link_to 'Edit', edit_center_path(center) %></td>
         <td><%= link_to 'Destroy', center, method: :delete, data: { confirm: 'Are you sure?' } %></td>

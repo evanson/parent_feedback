@@ -19,7 +19,9 @@
 
 <p>
   <strong>Center:</strong>
+<% if Center.exists?(@student.center_id) %>
     <%= @student.center.name %>
+<% end %>
 </p>
 <p>
   <strong>Subjects taken:</strong>
@@ -32,7 +34,11 @@
 <p>
   <strong>Days active:</strong>
   <% @student.student_days.each do |day| %>
+<% if CenterDay.exists?(day.center_day_id)%>
     <%= day.center_day.school_day.abbrev %>
+<% else %>
+    <% day.destroy %>
+<% end %>
   <% end %>
 
 </p>
