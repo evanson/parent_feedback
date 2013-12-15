@@ -1,0 +1,1 @@
+$("#time<%=@conference.confTime%>").html("Attending")

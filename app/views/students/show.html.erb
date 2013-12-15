@@ -16,6 +16,12 @@
   <strong>Dob:</strong>
   <%= @student.dob %>
 </p>
+<p>
+  <strong>Instructor:</strong>
+<% if Instructor.exists?(@student.instructor_id) %>
+    <%= @student.instructor.firstname + " " + @student.instructor.lastname%>
+<% end %>
+</p>
 
 <p>
   <strong>Center:</strong>

@@ -1,0 +1,39 @@
+<div class="row">
+<div class="span6 offset3">
+<%= form_for(@conference) do |f| %>
+  <% if @conference.errors.any? %>
+    <div id="error_explanation">
+    <div class="alert alert-error">
+      <h2><%= pluralize(@conference.errors.count, "error") %> prohibited this conference from being saved:</h2>
+    </div>
+      <ul>
+      <% @conference.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+    <%= f.label "Conference Date" %><br>
+    <%= f.date_select :confDate %>
+
+    <%= f.label "Conference Time" %><br>
+    <%= f.time_select :confTime %>
+
+    <%= f.label :instructor_id %><br>
+    <% if current_user.type.to_s == "Admin" %>  
+        <%= f.select :instructor_id, Instructor.all.collect {|i|
+[i.firstname + " " + i.lastname, i.id]
+}%>
+    <% elsif current_user.type.to_s == "Instructor"  %>
+    <%= f.select :instructor_id,
+    options_for_select([[current_user.firstname + " " +
+    current_user.lastname , current_user.id]]) %>
+    <% end %>
+
+    <%= f.submit class: "btn btn-large btn-primary" %>
+
+<% end %>
+</div>
+</div>

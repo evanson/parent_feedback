@@ -1,0 +1,27 @@
+<% @conferences.each do |conference| %>
+<% ids = Array.new %>
+<% current_user.students.each do |student| %>
+    <% ids.push(student.instructor_id) %>
+<% end %>
+<% if ids.include?(conference.instructor_id)%>
+  <tr>
+    <td><%= conference.confDate %></td>
+    <td><%= conference.confTime.strftime('%I:%M
+    %P') %></td>
+
+
+    <% if current_user.conferences.include?(conference) %>
+      <td>Attending</td>
+    <% else %>
+      <td id="time<%=conference.id%>">
+        <%= form_for conference, :url =>
+            attend_conference_path(conference), :method => :post, remote: true do |f| %>
+            <%= f.hidden_field :conference_id, value: conference.id %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.submit "Confirm attendance", class: "btn btn-large btn-primary" %>
+            <% end %>
+      </td>
+    <% end %>
+  </tr>
+<% end %>
+<% end %>

@@ -3,6 +3,7 @@ class Student < ActiveRecord::Base
   STUDENT_DAYS_MIN = 1
   belongs_to :parent
   belongs_to :center
+  belongs_to :instructor
   has_many :student_days, :dependent => :destroy
   has_many :center_days, :through => :student_days
   accepts_nested_attributes_for :center_days
@@ -10,12 +11,16 @@ class Student < ActiveRecord::Base
   has_and_belongs_to_many :subjects
   accepts_nested_attributes_for :subjects
   before_destroy { subjects.clear }
+  #validates_presence_of :subjects
+  #validates_presence_of :student_days
+
+  has_many :works, :dependent => :destroy
   validates :firstname, presence: true
   validates :lastname, presence: true
-  validate do
-    check_subjects_count
-    check_student_days_count
-  end
+  #validate do
+  #  check_subjects_count
+  #  check_student_days_count
+  #end
 
   private
 
@@ -30,7 +35,7 @@ class Student < ActiveRecord::Base
   end
 
   def student_day_count_valid?
-    student_days.count >= STUDENT_DAYS_MIN
+    center_days.count >= STUDENT_DAYS_MIN
   end
 
   def check_student_days_count

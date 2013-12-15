@@ -21,8 +21,18 @@
     <%= f.text_field :lastname %>
 
     <%= f.label :dob %>
-    <%= f.date_select :dob %>
+    <%= f.date_select :dob, {:start_year => Date.today.year - 15} %>
 
+    <%= f.label :instructor_id %>
+    <% if current_user.type.to_s == "Admin" %>  
+        <%= f.select :instructor_id, Instructor.all.collect {|i|
+[i.firstname + " " + i.lastname, i.id]
+}%>
+    <% elsif current_user.type.to_s == "Instructor"  %>
+    <%= f.select :instructor_id,
+    options_for_select([[current_user.firstname + " " +
+    current_user.lastname , current_user.id]]) %>
+    <% end %>
     <% if current_user.type.to_s == "Admin" %>  
         <%= f.label :center_id %>
         <%= f.select :center_id, Center.all.collect {|c|

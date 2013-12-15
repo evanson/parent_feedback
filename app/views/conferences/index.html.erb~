@@ -1,0 +1,31 @@
+<h1>Listing conferences</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Confdate</th>
+      <th>Conftime</th>
+      <th>Instructor</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @conferences.each do |conference| %>
+      <tr>
+        <td><%= conference.confDate %></td>
+        <td><%= conference.confTime %></td>
+        <td><%= conference.instructor_id %></td>
+        <td><%= link_to 'Show', conference %></td>
+        <td><%= link_to 'Edit', edit_conference_path(conference) %></td>
+        <td><%= link_to 'Destroy', conference, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Conference', new_conference_path %>

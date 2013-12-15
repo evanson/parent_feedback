@@ -255,6 +255,36 @@ div.body table tbody td a {
     text-decoration: none;
 }
 
+div.body table tbody td.pending a {
+    background-color: #EFBE63;
+    color: black;
+    padding: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-radius: 2px;
+    text-decoration: none;
+}
+
+div.body table tbody td.approved a {
+    background-color: #BFBFBF;
+    color: black;
+    padding: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-radius: 2px;
+    text-decoration: none;
+}
+
+div.body table tbody td form input[type="submit"].btn.btn-large.btn-primary {
+    padding: 3px;
+    font-size: 15px;
+}
+
+div.body table tbody td form {
+    padding: 0;
+    margin: 0;
+}
+
 div.body table tbody td a:hover {
     background-color: #5FB83A;
     color: white;

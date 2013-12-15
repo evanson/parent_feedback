@@ -48,5 +48,15 @@ class Ability
     can :manage, Student, :center_id => user.center_id if user.type.to_s.downcase == "instructor"
 
     #Subject
+
+    #Work
+    can [:new, :create], Work if user.type.to_s.downcase == "parent"
+    cannot [:edit, :update, :index, :destroy], Work if user.type.to_s == "Parent"
+    can [:read, :edit, :index, :update], Work if user.type.to_s == "Instructor"
+    cannot [:new, :create, :destroy], Work if user.type.to_s == "Instructor"
+
+    #Conference
+    can :manage, Conference if user.type.to_s == "Instructor"
+    can :index, Conference if user.type.to_s == "Parent"
   end
 end

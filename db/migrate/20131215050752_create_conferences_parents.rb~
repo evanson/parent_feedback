@@ -1,0 +1,6 @@
+class CreateConferencesParents < ActiveRecord::Migration
+  def change
+    create_table :conferences_parents do |t|
+    end
+  end
+end

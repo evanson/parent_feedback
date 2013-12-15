@@ -1,0 +1,20 @@
+<h1>Conference attendance</h1>
+<table>
+  <thead>
+    <tr><th>Student</th><th>Time</th></tr>
+  </thead>
+  <tbody>
+    <% @attendees.each do |attendee| %>
+        <% attendee.students.each do |student| %>
+            <% if student.instructor_id == @conference.instructor_id
+    %>
+            <tr>
+                <td><%= student.firstname + " " +
+                student.lastname%></td>
+                <td><%= @conference.confTime.strftime('%I:%M %P') %></td>
+            </tr>
+          <% end %>
+        <% end %>
+    <% end %>
+  </tbody>
+</table>

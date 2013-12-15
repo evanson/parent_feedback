@@ -1,0 +1,74 @@
+<h1>Work requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Subject</th>
+      <th>From</th>
+      <th>Till</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @works.each do |work| %>
+      <% if current_user.type.to_s == "Instructor" %>
+      <% if work.student.instructor_id == current_user.id %>
+      <tr>
+        <td><%= 
+            work.student.firstname + " " + work.student.lastname 
+%></td>
+        <td><%= work.subject.name %></td>
+        <td><%= work.startdate %></td>
+        <td><%= work.enddate %></td>
+        <% if work.status == 'pending'%>
+            <td id='form<%=work.id%>'><%= form_for work, remote: true do |f| %>
+            <%= f.hidden_field :student_id %>
+            <%= f.hidden_field :subject_id %>
+            <%= f.hidden_field :startdate %>
+            <%= f.hidden_field :enddate %>
+            <%= f.hidden_field :status, :value=> 'approved' %>
+    <%= f.submit "Approve", class: "btn btn-large btn-primary" %>
+            <% end %>
+</td>
+            <td class='pending form<%=work.id%>'><%= link_to work.status.capitalize,
+        work %></td>
+        <% else %>
+            <td></td>
+            <td class='approved'><%= link_to work.status.capitalize, work %></td>
+        <% end %>
+      </tr>      
+    <% end %>
+    <% else %>
+      <tr>
+        <td><%= 
+            work.student.firstname + " " + work.student.lastname 
+%></td>
+        <td><%= work.subject.name %></td>
+        <td><%= work.startdate %></td>
+        <td><%= work.enddate %></td>
+        <% if work.status == 'pending'%>
+            <td id='form<%=work.id%>'><%= form_for work, remote: true do |f| %>
+            <%= f.hidden_field :student_id %>
+            <%= f.hidden_field :subject_id %>
+            <%= f.hidden_field :startdate %>
+            <%= f.hidden_field :enddate %>
+            <%= f.hidden_field :status, :value=> 'approved' %>
+    <%= f.submit "Approve", class: "btn btn-large btn-primary" %>
+            <% end %>
+</td>
+            <td class='pending form<%=work.id%>'><%= link_to work.status.capitalize,
+        work %></td>
+        <% else %>
+            <td></td>
+            <td class='approved'><%= link_to work.status.capitalize, work %></td>
+        <% end %>
+      </tr>      
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

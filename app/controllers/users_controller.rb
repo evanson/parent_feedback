@@ -10,6 +10,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @recipient = User.find_by_email("wachiraevanson@gmail.com")
+    #@user.send_message(@recipient, "Just testing gem mailboxer", "gem test")
     authorize! :read, @user
   end
 

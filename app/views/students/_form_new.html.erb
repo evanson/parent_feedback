@@ -14,21 +14,34 @@
     </div>
   <% end %>
 <%= f.fields_for :students do |s|%>
-    <%= s.label :firstname %><br>
+    <%= s.label :firstname %>
     <%= s.text_field :firstname %>
 
-    <%= s.label :lastname %><br>
+    <%= s.label :lastname %>
     <%= s.text_field :lastname %>
 
     <%= s.label :dob %>
-    <%= s.date_select :dob, {:start_year => Date.today.year - 10}%>
+    <%= s.date_select :dob, {:start_year => Date.today.year - 15}%>
+
+    <%= s.label :instructor_id %>
+    <% if current_user.type.to_s == "Admin" %>  
+        <%= s.select :instructor_id, Instructor.all.collect {|i|
+[i.firstname + " " + i.lastname, i.id]
+}%>
+    <% elsif current_user.type.to_s == "Instructor"  %>
+    <%= s.select :instructor_id,
+    options_for_select([[current_user.firstname + " " +
+    current_user.lastname , current_user.id]]) %>
+    <% end %>
+
+
 
     <% if current_user.type.to_s == "Admin" %>  
         <%= s.label :center_id %>
         <%= s.select :center_id, Center.all.collect {|c|
 [c.name, c.id]
 }, {}, { :class => "center" }%>
-        <%= s.fields_for :center_days do |c|%>
+        <%= s.fields_for :student_days do |c|%>
         <%= c.label "Days to attend" %>
             <div id="days_field">
   <% for day in  CenterDay.where(center_id:
@@ -42,7 +55,7 @@
         <%= s.label :center_id %>
         <%= s.select :center_id, [[current_user.center.name,
         current_user.center.id]]%>
-        <%= s.fields_for :center_days do |c|%>
+        <%= s.fields_for :student_days do |c|%>
             <%= c.label "Days to attend" %>
             <% for day in CenterDay.where(center_id:
         current_user.center).take(7)%>

@@ -1,4 +1,14 @@
 ParentFeedback::Application.routes.draw do
+
+  resources :conferences do
+    member do
+      get :attendance
+      post :attend
+    end
+  end
+
+  resources :works
+
   root 'sessions#new'
 
   resources :school_days
@@ -16,6 +26,15 @@ ParentFeedback::Application.routes.draw do
   resources :parents, :controller => "users", :type => "Parent"
 
   resources :sessions, only: [:new, :create, :destroy ]
+
+  resources :conversations, only: [:index, :show, :new, :create] do
+    member do
+      post :reply
+      post :trash
+      post :untrash
+    end
+  end
+
 
   match '/signin', to: 'sessions#new', via: :get
   match '/signout', to: 'sessions#destroy', via: :delete

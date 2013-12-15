@@ -1,0 +1,62 @@
+<div class="row">
+<div class="span6 offset3">
+<%= form_for(@work) do |f| %>
+  <% if @work.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@work.errors.count, "error") %> prohibited this work from being saved:</h2>
+
+      <ul>
+      <% @work.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.label :student_id %><br>
+    <% if current_user.type.to_s == "Admin"%>
+        <%= f.select :student_id, Student.all.collect {|s|
+[s.firstname + " " + s.lastname, s.id]
+}%>
+    <% elsif current_user.type.to_s == "Parent"%>
+       <%= f.select :student_id, Student.all.where(parent_id: current_user.id).collect {|s|
+[s.firstname + " " + s.lastname, s.id]
+}%> 
+    <% end %>
+
+    <%= f.label :subject_id %><br>
+    <%= f.select :subject_id, Subject.all.collect {|s|
+[s.name, s.id]
+} %>
+
+    <%= f.label :startdate %><br>
+    <%= f.date_select :startdate %>
+
+    <%= f.label :enddate %><br>
+    <%= f.date_select :enddate %>
+
+    <%= f.label :status %><br>
+    
+<% if current_user.type.to_s == "Admin"%>
+    <%= f.select :status, options_for_select([['Pending',
+    'pending'], ['Approved', 'approved']]) %>
+
+<% elsif current_user.type.to_s == "Parent"%>
+    <%= f.select :status, options_for_select([['Pending',
+    'pending']]) %>
+
+<% elsif current_user.type.to_s == "Instructor"%>
+    <%= f.select :status, options_for_select([['Approved', 'approved']]) %>
+
+<% end %>
+
+<% if current_user.type.to_s == "Parent"%>
+    <%= f.submit "Request", class: "btn btn-large btn-primary"%>
+<% elsif current_user.type.to_s == "Instructor"%>
+    <%= f.submit "Approve", class: "btn btn-large btn-primary"%>
+<% elsif current_user.type.to_s == "Admin"%>
+    <%= f.submit "Approve/Update Request", class: "btn btn-large btn-primary"%>
+<% end %>
+<% end %>
+  </div>
+  </div>
