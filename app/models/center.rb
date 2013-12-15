@@ -7,7 +7,7 @@ class Center < ActiveRecord::Base
   has_many :school_days, :through => :center_days
   accepts_nested_attributes_for :school_days
   validate do
-    check_center_days_count
+    #check_center_days_count
   end
 
   private
