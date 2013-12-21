@@ -40,16 +40,42 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    @parent = Parent.new(new_student_params)
+    if Parent.exists?(email: params[:parent][:email])
+      @parent = Parent.find_by_email(params[:parent][:email])
+      @status = 'existing'
+      attrs = Hash.new
+      attrs = params[:parent][:students_attributes]["0"].deep_dup
+      attrs[:parent_id] = @parent.id
+      params.clear
+      params[:student] = attrs.deep_dup
+      @newstudent = Student.new(student_params)
+    else
+      @parent = Parent.new(new_student_params)
+      @status = 'new'
+    end
+
     authorize! :create, Student
-    respond_to do |format|
-      if @parent.save
-        UserMailer.user_email(@parent).deliver
-        format.html { redirect_to students_path, notice: 'Student was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @student }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
+    if @status == 'new'
+      respond_to do |format|
+        if @parent.save
+          UserMailer.user_email(@parent).deliver
+          format.html { redirect_to students_path, notice: 'Student was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @student }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @student.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        if @newstudent.save
+          format.html { redirect_to students_path, notice: 'Student was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @student }
+        else
+          @student = @newstudent
+          format.html { render action: 'new' }
+          format.json { render json: @newstudent.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -92,7 +118,7 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:firstname, :lastname, :dob, :center_id, :instructor_id, :center_day_ids => [], :subject_ids => [])
+      params.require(:student).permit(:firstname, :lastname, :dob, :center_id, :instructor_id, :parent_id, :center_day_ids => [], :subject_ids => [])
     end
 
     def new_student_params

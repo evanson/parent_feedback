@@ -46,7 +46,7 @@
             <div id="days_field">
   <% for day in  CenterDay.where(center_id:
         Center.first.id).take(7) %>
-    <%= check_box_tag "student[center_day_ids][]", day.id %>
+    <%= check_box_tag "parent[students_attributes][0][center_day_ids][]", day.id %>
     <%= day.school_day.abbrev %>
   <% end %>
             </div>
@@ -66,7 +66,7 @@
         <% end %>
     <% end %>
 
-    <%= s.fields_for :subjects do |su|%>
+    <%= s.fields_for :student_subjects do |su|%>
 
         <%= su.label :subjects %>
         <% for subject in Subject.all %>

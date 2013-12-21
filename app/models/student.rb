@@ -11,18 +11,24 @@ class Student < ActiveRecord::Base
   has_and_belongs_to_many :subjects
   accepts_nested_attributes_for :subjects
   before_destroy { subjects.clear }
-  #validates_presence_of :subjects
-  #validates_presence_of :student_days
+  validates_presence_of :subjects
+  validates_presence_of :student_days
 
   has_many :works, :dependent => :destroy
   validates :firstname, presence: true
   validates :lastname, presence: true
-  #validate do
-  #  check_subjects_count
-  #  check_student_days_count
-  #end
+  validate do
+    #check_center_match
+  end
 
   private
+
+  #Ensures students center matches Instructor's center
+  def check_center_match
+    unless center == instructor.center
+      errors.add(:base, "Student's center must match instructor's center")
+    end
+  end
 
   def subject_count_valid?
     subjects.count >= SUBJECTS_MIN
