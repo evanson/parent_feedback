@@ -17,6 +17,15 @@ ParentFeedback::Application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy ]
 
+  resources :conversations, only: [:index, :show, :new, :create] do
+    member do
+      post :reply
+      post :trash
+      post :untrash
+    end
+  end
+
+
   match '/signin', to: 'sessions#new', via: :get
   match '/signout', to: 'sessions#destroy', via: :delete
 

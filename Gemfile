@@ -85,3 +85,9 @@ gem 'jquery-turbolinks'
 
 # To use Ability for managing user abilities to manage resources
 gem 'cancan'
+
+# For app mailing and user conversations
+gem 'mailboxer', '0.11.0'
+
+gem 'simple_form'
+gem 'haml-rails'
