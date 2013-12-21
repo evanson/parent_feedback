@@ -1,6 +1,10 @@
 class User < ActiveRecord::Base
   has_secure_password
+<<<<<<< HEAD
   has_and_belongs_to_many :conferences
+=======
+  acts_as_messageable
+>>>>>>> add-messaging
 
   before_save { |user| user.email = email.downcase }
   before_create :create_remember_token
@@ -19,6 +23,14 @@ class User < ActiveRecord::Base
 
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def name
+    firstname + ' ' + lastname
+  end
+
+  def mailboxer_email(user)
+    email
   end
 
   private
