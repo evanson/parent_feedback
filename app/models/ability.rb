@@ -45,7 +45,8 @@ class Ability
     cannot :index, Parent if user.type.to_s.downcase == "parent"
 
     #Student
-    can :manage, Student, :center_id => user.center_id if user.type.to_s.downcase == "instructor"
+    can :manage, Student, :instructor_id => user.id if user.type.to_s.downcase == "instructor"
+    can :index, Student, :parent_id => user.id if user.type.to_s == "Parent"
 
     #Subject
 

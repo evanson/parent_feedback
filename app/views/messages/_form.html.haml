@@ -1,12 +1,6 @@
 = simple_form_for :message, url: [:reply, conversation] do |f|
   = f.input :subject
-<<<<<<< HEAD
-  = f.input :body
-  .form-actions
-    = f.button :submit, class: 'btn-primary'
-=======
   = f.text_area :body
   .form-actions
     = f.button :submit, 'Reply', class: 'btn btn-primary'
->>>>>>> add-messaging
     = submit_tag 'Cancel', type: :reset, class: 'btn btn-danger'

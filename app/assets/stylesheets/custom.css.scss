@@ -49,10 +49,11 @@ h2 {
     font-size: 1.7em;
     letter-spacing: -1px;
     margin-bottom: 30px;
-    text-align: center;
+    text-align: left;
     font-weight: normal;
     color: $lightGray;
 }
+
 
 p {
     font-size: 1.1em;
@@ -217,6 +218,10 @@ div.body {
 
 }
 
+div.body table {
+    box-shadow: 10px 10px 5px #888;
+}
+
 div.body table thead {
 	background-color: #3924D6;
 	color: white;
@@ -242,6 +247,7 @@ div.body table tbody tr:hover {
 
 div.body table tbody td {
 	padding: 0.4em 1em;
+    text-align: left;
 
 }
 
@@ -289,6 +295,11 @@ div.body table tbody td a:hover {
     background-color: #5FB83A;
     color: white;
 }
+
+div.tbody table tbody tr td {
+    text-align: left;
+}
+
 div.body  a.btn {
 	color: #FFFFFF;
     padding: 7px;

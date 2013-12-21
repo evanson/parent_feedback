@@ -32,9 +32,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
 # Use unicorn as the app server
 # gem 'unicorn'
 
@@ -79,22 +76,13 @@ group :test do
     gem 'database_cleaner', '0.7.0'
 end
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'jquery-turbolinks'
 
 # To use Ability for managing user abilities to manage resources
 gem 'cancan'
 
-<<<<<<< HEAD
-# To manage a mailbox for each user
-gem "mailboxer", "0.11.0"
-
-#gem 'simple_form'
-=======
 # For app mailing and user conversations
 gem 'mailboxer', '0.11.0'
 
 gem 'simple_form'
 gem 'haml-rails'
->>>>>>> add-messaging

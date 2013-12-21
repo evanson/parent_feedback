@@ -1,10 +1,8 @@
 class User < ActiveRecord::Base
   has_secure_password
-<<<<<<< HEAD
   has_and_belongs_to_many :conferences
-=======
+
   acts_as_messageable
->>>>>>> add-messaging
 
   before_save { |user| user.email = email.downcase }
   before_create :create_remember_token

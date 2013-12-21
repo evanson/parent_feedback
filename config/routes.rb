@@ -32,6 +32,8 @@ ParentFeedback::Application.routes.draw do
       post :reply
       post :trash
       post :untrash
+      get :student
+      get :user
     end
   end
 

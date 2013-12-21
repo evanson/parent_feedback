@@ -1,4 +1,4 @@
-<h1>Listing students</h1>
+<h2>Students</h2>
 <% if notice %>
     <h3 class="alert alert-success"><%= notice %></h3>
 <% end %>
@@ -57,6 +57,12 @@
 <% if can? :destroy, student%>
 <%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are
 you sure?' } %>
+<% end %>
+</td>
+<td class="bttn">
+<% if current_user.type.to_s == "Parent" || current_user.type.to_s == "Instructor"%>
+    <%= link_to 'Send feedback', student_conversation_path(student)
+        %>
 <% end %>
 </td>
       </tr>

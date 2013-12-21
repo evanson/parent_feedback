@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       # Sign in user
       sign_in user
-      redirect_to user
+      redirect_to conversations_path
     else
       # Rerender signin form
       flash[:error] = "Invalid email/password combination"

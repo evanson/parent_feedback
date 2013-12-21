@@ -7,7 +7,9 @@ class StudentsController < ApplicationController
     if current_user.type.to_s == "Admin"
       @students = Student.paginate(page: params[:page])
     elsif current_user.type.to_s == "Instructor"
-      @students = Student.paginate(page: params[:page]).where(center_id: current_user.center_id)
+      @students = Student.paginate(page: params[:page]).where(instructor_id: current_user.id)
+    elsif current_user.type.to_s == "Parent"
+      @students = Student.paginate(page: params[:page]).where(parent_id: current_user.id)
     end
     authorize! :index, Student
   end

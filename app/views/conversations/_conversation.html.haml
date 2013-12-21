@@ -1,8 +1,28 @@
-= content_tag_for(:li, conversation) do |conversation|
-  %p
-    = link_to conversation.subject, conversation
-    |
+%tr
+
+  - message = ''
+  - messageread = true
+  - receipts = conversation.receipts_for current_user
+  - receipts.reverse!
+  - receipts.each do |receipt|  
+    - message = receipt.message.body
+    - messageread = receipt.is_unread?
+  - if messageread
+    %td= conversation.subject
+    %td= message
+    %td= link_to 'Reply', conversation
     - if conversation.is_completely_trashed?(current_user)
-      = link_to 'Untrash', [:untrash, conversation], method: :post
+      %td= link_to 'Untrash', [:untrash, conversation], method: :post
     - else
-      = link_to 'Move to trash', [:trash, conversation], method: :post
+      %td= link_to 'Move to trash', [:trash, conversation], method: :post
+  - else
+    %td
+      %b= conversation.subject
+    %td
+      %b= message
+    %td= link_to 'Reply', conversation
+    - if conversation.is_completely_trashed?(current_user)
+      %td= link_to 'Untrash', [:untrash, conversation], method: :post
+    - else
+      %td= link_to 'Move to trash', [:trash, conversation], method: :post
+
