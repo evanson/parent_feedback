@@ -1,0 +1,4 @@
+Name,Dob,Parent Name,Parent Email,Center,Subjects,Days active
+<% @students.each do |student| %>
+<%= student.firstname + ' ' + student.lastname %>,<%= student.dob%>,<%= student.parent.firstname+ ' '+student.parent.lastname %>,<%= student.parent.email%>,<%= student.center.name%>,<%student.subjects.each do|subject|%><%= subject.name %> <% end %>,<% student.student_days.each do |day| %><% if CenterDay.exists?(day.center_day_id)%><%= day.center_day.school_day.abbrev %> <% else %><% day.destroy %><% end %><% end %>
+<% end %>

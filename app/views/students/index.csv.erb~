@@ -1,0 +1,3 @@
+Name,Dob,Parent Name,Center,Subjects,Days active
+<% @students.each do |student| %>
+<% end %>

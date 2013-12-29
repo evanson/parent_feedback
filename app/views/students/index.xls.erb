@@ -1,0 +1,40 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Dob</th>
+      <th>Parent Name</th>
+      <th>Parent Email</th>
+      <th>Center</th>
+      <th>Subjects</th>
+      <th>Days active</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.firstname + ' ' + student.lastname %></td>
+        <td><%= student.dob %></td>
+        <td><%= student.parent.firstname + ' ' +
+        student.parent.lastname %></td>
+        <td><%= student.parent.email %></td>
+        <td><%= student.center.name %></td>
+        <td>
+          <% student.subjects.each do |subject| %>
+            <%=  subject.name %>
+          <% end %>
+        </td>
+        <td>
+          <% student.student_days.each do |day| %>
+<% if CenterDay.exists?(day.center_day_id)%>
+    <%= day.center_day.school_day.abbrev %>
+<% else %>
+    <% day.destroy %>
+<% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

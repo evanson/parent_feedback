@@ -17,6 +17,7 @@ ParentFeedback::Application.routes.draw do
 
   resources :students do
     get :center_days_partial, on: :member
+    collection { post :import }
   end
 
   resources :centers

@@ -86,3 +86,4 @@ gem 'mailboxer', '0.11.0'
 
 gem 'simple_form'
 gem 'haml-rails'
+gem 'roo'

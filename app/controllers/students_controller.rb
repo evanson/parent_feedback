@@ -12,6 +12,11 @@ class StudentsController < ApplicationController
       @students = Student.paginate(page: params[:page]).where(parent_id: current_user.id)
     end
     authorize! :index, Student
+    respond_to do |format|
+      format.html
+      format.csv #{ send_data @students.to_csv }
+      format.xls #{ send_data @students.to_csv(col_sep: "\t") }
+    end
   end
 
   # GET /students/1
@@ -104,6 +109,11 @@ class StudentsController < ApplicationController
       format.html { redirect_to students_url }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    Student.import(params[:file])
+    redirect_to students_path, notice: "Students imported"
   end
 
   def center_days_partial
