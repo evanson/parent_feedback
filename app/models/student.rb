@@ -24,7 +24,7 @@ class Student < ActiveRecord::Base
   def self.search(search)
     if search
       search.capitalize!
-      where('firstname LIKE ? OR lastname LIKE ?', "%#{search}", "%#{search}")
+      where('firstname LIKE ? OR lastname LIKE ?', "%#{search}%", "%#{search}%")
     else
      scoped
     end
