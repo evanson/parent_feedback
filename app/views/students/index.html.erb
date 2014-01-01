@@ -4,77 +4,18 @@ Download:
 <%= link_to "CSV", students_path(format: "csv") %> |
 <%= link_to "Excel", students_path(format: "xls") %>
 </p>
+<div id="search">
+<%= form_tag students_path, :method => 'get', :id => "students_search" do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", name: nil, class: "btn btn-primary"%>
+  </p>
+<% end %>
+</div>
 <% if notice %>
     <h3 class="alert alert-success"><%= notice %></h3>
 <% end %>
-<table>
-  <thead>
-    <tr>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Dob</th>
-      <th>Center</th>
-      <th>Subjects</th>
-      <th>Days active</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @students.each do |student| %>
-      <tr>
-        <td><%= student.firstname %></td>
-        <td><%= student.lastname %></td>
-        <td><%= student.dob %></td>
-        <td>
-<% if Center.exists?(student.center_id) %>
-<%= student.center.name %>
-<% end %>
-</td>
-        <td>
-          <% student.subjects.each do |subject| %>
-            <%=  subject.name %>
-          <% end %>
-        </td>
-        <td>
-          <% student.student_days.each do |day| %>
-<% if CenterDay.exists?(day.center_day_id)%>
-    <%= day.center_day.school_day.abbrev %>
-<% else %>
-    <% day.destroy %>
-<% end %>
-
-          <% end %>
-        </td>
-        <td>
-<% if can? :read, student%>
-<%= link_to 'Show', student %>
-<% end %>
-</td>
-        <td>
-<% if can? :edit, student%>
-<%= link_to 'Edit', edit_student_path(student) %>
-<% end %>
-</td>
-        <td>
-<% if can? :destroy, student%>
-<%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are
-you sure?' } %>
-<% end %>
-</td>
-<td class="bttn">
-<% if current_user.type.to_s == "Parent" || current_user.type.to_s == "Instructor"%>
-    <%= link_to 'Send feedback', student_conversation_path(student)
-        %>
-<% end %>
-</td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<% will_paginate %>
+<div id="students"><%= render 'students' %></div>
 <br>
 <% if can? :create, Student %>
   <%= link_to 'New Student', new_student_path, class: "btn btn-large

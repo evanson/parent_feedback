@@ -1,21 +1,23 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
+  helper_method :sort_column, :sort_direction
 
   # GET /students
   # GET /students.json
   def index
     if current_user.type.to_s == "Admin"
-      @students = Student.paginate(page: params[:page])
+      @students = Student.search(params[:search]).order(sort_column + " " + sort_direction).paginate(per_page: 30, page: params[:page])
     elsif current_user.type.to_s == "Instructor"
-      @students = Student.paginate(page: params[:page]).where(instructor_id: current_user.id)
+      @students = Student.search(params[:search]).paginate(page: params[:page]).where(instructor_id: current_user.id)
     elsif current_user.type.to_s == "Parent"
       @students = Student.paginate(page: params[:page]).where(parent_id: current_user.id)
     end
     authorize! :index, Student
     respond_to do |format|
       format.html
-      format.csv #{ send_data @students.to_csv }
-      format.xls #{ send_data @students.to_csv(col_sep: "\t") }
+      format.js
+      format.csv # { send_data @students.to_csv }
+      format.xls # { send_data @students.to_csv(col_sep: "\t") }
     end
   end
 
@@ -133,5 +135,13 @@ class StudentsController < ApplicationController
 
     def new_student_params
       params.require(:parent).permit(:firstname, :lastname, :email, :password, :password_confirmation, :status, students_attributes: [:firstname, :lastname, :dob, :center_id, :instructor_id, :center_day_ids => [], :subject_ids => []])
+    end
+
+    def sort_column
+      Student.column_names.include?(params[:sort]) ? params[:sort] : "firstname"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

@@ -53,10 +53,11 @@ you sure?' } %>
     <% end %>
   </tbody>
 </table>
+<%= will_paginate %>
 <br><br><br>
 <% if can? :create, @user_type %>
 <%= link_to "New #{@user_type}", eval("new_#{@user_type}_path"),
     class: "btn btn-large btn-primary" %>
 <% end %>
-<%= will_paginate %>
+
 

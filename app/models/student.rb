@@ -21,6 +21,15 @@ class Student < ActiveRecord::Base
     #check_center_match
   end
 
+  def self.search(search)
+    if search
+      search.capitalize!
+      where('firstname LIKE ? OR lastname LIKE ?', "%#{search}", "%#{search}")
+    else
+     scoped
+    end
+  end
+
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       csv << column_names

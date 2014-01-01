@@ -1,0 +1,70 @@
+<%= hidden_field_tag :direction, params[:direction]%>
+<%= hidden_field_tag :sort, params[:sort]%>
+<table>
+  <thead>
+    <tr>
+      <th><%= sortable "firstname" %></th>
+      <th><%= sortable "lastname"  %></th>
+      <th>Dob</th>
+      <th>Center</th>
+      <th>Subjects</th>
+      <th>Days active</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.firstname %></td>
+        <td><%= student.lastname %></td>
+        <td><%= student.dob %></td>
+        <td>
+<% if Center.exists?(student.center_id) %>
+<%= student.center.name %>
+<% end %>
+</td>
+        <td>
+          <% student.subjects.each do |subject| %>
+            <%=  subject.name %>
+          <% end %>
+        </td>
+        <td>
+          <% student.student_days.each do |day| %>
+<% if CenterDay.exists?(day.center_day_id)%>
+    <%= day.center_day.school_day.abbrev %>
+<% else %>
+    <% day.destroy %>
+<% end %>
+
+          <% end %>
+        </td>
+        <td>
+<% if can? :read, student%>
+<%= link_to 'Show', student %>
+<% end %>
+</td>
+        <td>
+<% if can? :edit, student%>
+<%= link_to 'Edit', edit_student_path(student) %>
+<% end %>
+</td>
+        <td>
+<% if can? :destroy, student%>
+<%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are
+you sure?' } %>
+<% end %>
+</td>
+<td class="bttn">
+<% if current_user.type.to_s == "Parent" || current_user.type.to_s == "Instructor"%>
+    <%= link_to 'Send feedback', student_conversation_path(student)
+        %>
+<% end %>
+</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate %>
