@@ -19,7 +19,7 @@ ParentFeedback::Application.configure do
     port: 587,
     domain: 'aqueous-ridge-1848.herokuapp.com',
     user_name: 'parentfeedbacks',
-    password: 'auntjemima',
+    password: '',
     authentication: 'plain',
     enable_starttls_auto: true
   }
